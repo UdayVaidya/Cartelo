@@ -29,6 +29,10 @@ if(!process.env.GOOGLE_CLIENT_SECRET){
     throw new Error("GOOGLE_CLIENT_SECRET is not defined");
 }
 
+if(!process.env.NODE_ENV){
+    throw new Error("NODE_ENV is not defined");
+}
+
 export const config = {
     PORT: process.env.PORT,
     MONGODB_URI: process.env.MONGODB_URI,
@@ -37,4 +41,5 @@ export const config = {
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    NODE_ENV: process.env.NODE_ENV,
 };

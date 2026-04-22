@@ -1,4 +1,4 @@
-import {createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
     name: "auth",
@@ -8,6 +8,7 @@ const authSlice = createSlice({
         isAuthenticated: false,
         loading: false,
         error: null,
+        isInitialized: false, // Tracks if initial session check has run
     },
     reducers: {
         setUser: (state, action) => {
@@ -23,8 +24,16 @@ const authSlice = createSlice({
         setError: (state, action) => {
             state.error = action.payload;
         },
+        setInitialized: (state, action) => {
+            state.isInitialized = action.payload;
+        },
+        logout: (state) => {
+            state.user = null;
+            state.token = null;
+            state.isAuthenticated = false;
+        }
     },
 })
 
-export const { setUser, setToken, setLoading, setError } = authSlice.actions;
+export const { setUser, setToken, setLoading, setError, setInitialized, logout } = authSlice.actions;
 export default authSlice.reducer;

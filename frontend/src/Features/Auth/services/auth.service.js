@@ -23,8 +23,26 @@ const loginUser = async (userData) => {
     }
 };
 
+const getMe = async () => {
+    try {
+        const response = await authApiInstance.get(`/me`);
+        return response.data;
+    } catch (error) {
+        return null;
+    }
+};
+
+const logoutUser = async () => {
+    try {
+        const response = await authApiInstance.post(`/logout`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 const googleAuth = () => {
     window.location.href = "/api/auth/google";
 };
 
-export { registerUser, loginUser, googleAuth };
+export { registerUser, loginUser, logoutUser, getMe, googleAuth };

@@ -80,11 +80,14 @@ function EditorialPanel() {
   return (
     <motion.div
       ref={panelRef}
-      className="hidden lg:flex flex-col justify-between w-[45%] h-full bg-[#111111] text-[#f0f0f0] relative overflow-hidden flex-shrink-0"
+      className="hidden lg:flex flex-col justify-between w-[45%] h-full bg-[#111111] bg-cover bg-center text-[#f0f0f0] relative overflow-hidden flex-shrink-0"
+      style={{ backgroundImage: "url('/auth_model.png')" }}
       initial={{ x: -60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     >
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/50 z-0" />
 
       {/* Top: brand */}
       <div className="relative z-10 p-12">
