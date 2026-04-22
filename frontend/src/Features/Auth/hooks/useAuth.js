@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, setToken, setLoading, setError } from "../state/auth.slice";
 import { useNavigate } from "react-router-dom";
-import { registerUser, loginUser } from "../services/auth.service";
+import { registerUser, loginUser, googleAuth } from "../services/auth.service";
 
 export const useAuth = () => {
     const dispatch  = useDispatch();
@@ -44,9 +44,14 @@ export const useAuth = () => {
         return null;
     }
 
+    function handleGoogleAuth() {
+        googleAuth();
+    }
+
     return {
         handleRegister,
         handleLogin,
+        handleGoogleAuth,
         loading,
         error
     }

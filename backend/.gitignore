@@ -99,3 +99,6 @@ web_modules/
 
 # Mac OS
 .DS_Store
+
+
+.package-lock.json

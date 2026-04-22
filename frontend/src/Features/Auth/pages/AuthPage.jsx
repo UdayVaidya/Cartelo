@@ -65,17 +65,9 @@ function BrandMark() {
 /* ── Left editorial panel ───────────────────────────────────── */
 function EditorialPanel() {
   const panelRef = useRef(null);
-  const imgRef = useRef(null);
-  const ref = useRef(null);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Parallax subtle zoom on mount
-      gsap.fromTo(
-        imgRef.current,
-        { scale: 1.08 },
-        { scale: 1, duration: 1.8, ease: "power2.out" }
-      );
       gsap.fromTo(
         ".panel-line",
         { opacity: 0, x: -24 },
@@ -96,7 +88,7 @@ function EditorialPanel() {
 
       {/* Top: brand */}
       <div className="relative z-10 p-12">
-        <div ref={ref} className="brand-logo mb-2">          {/* Increase h-14 to h-16 or h-20 if you want the left panel logo bigger! */}
+        <div className="brand-logo mb-2">
           <CarteloLogo className="h-14" />
         </div>
         <p className="panel-line text-[0.6875rem] font-semibold uppercase tracking-[0.25em] text-[#f5c518] mt-4" style={{ fontFamily: "Inter" }}>

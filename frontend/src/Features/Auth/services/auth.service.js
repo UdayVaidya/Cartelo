@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authApiInstance = axios.create({
-    baseURL: "/api/v1/auth",
+    baseURL: "/api/auth",
     withCredentials: true,
 });
 
@@ -23,4 +23,8 @@ const loginUser = async (userData) => {
     }
 };
 
-export { registerUser, loginUser };
+const googleAuth = () => {
+    window.location.href = "/api/auth/google";
+};
+
+export { registerUser, loginUser, googleAuth };

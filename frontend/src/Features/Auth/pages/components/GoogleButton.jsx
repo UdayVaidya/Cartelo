@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
+import { useAuth } from "../../hooks/useAuth";
 
 const GoogleG = () => (
   <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true">
@@ -13,10 +14,11 @@ const GoogleG = () => (
 
 export default function GoogleButton() {
   const btnRef = useRef(null);
+  const {handleGoogleAuth} = useAuth();
 
   const handleClick = () => {
     gsap.fromTo(btnRef.current, { scale: 0.97 }, { scale: 1, duration: 0.4, ease: "elastic.out(1, 0.5)" });
-    // TODO: window.location.href = "/api/v1/auth/google"
+    handleGoogleAuth();
   };
 
   return (

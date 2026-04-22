@@ -5,7 +5,7 @@ import { ApiError } from "../utils/ApiError.js";
 
 
 
-async function sentTokenResponse(user, res, message) {
+async function sentTokenResponse(user, res, message,statusCode=200) {
     const token = jwt.sign(
         { id: user._id },
         config.JWT_SECRET,
@@ -90,3 +90,26 @@ export const loginUser = async (req, res) => {
         throw new ApiError(500, "Error logging in user");
     }
 } 
+
+export const googleCallback = async (req, res) => {
+    try {
+        console.log(req.user); 
+
+        const token = jwt.sign(
+            { id: req.user._id },
+            config.JWT_SECRET,
+            { expiresIn: config.JWT_EXPIRES_IN }
+        );
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            sameSite: "strict",
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
+        res.redirect("http://localhost:5173/dashboard");
+    } catch (error) {
+        console.log(error);
+        res.redirect("http://localhost:5173/login?error=google_auth_failed");
+    }
+}
