@@ -34,16 +34,12 @@ export default function RegisterForm({ onSwitch }) {
     });
 
     if(success){
-      navigate("/");
+      onSwitch(); // go to login tab after successful registration
     }
   };
 
   if(loading){
     return <div>Loading...</div>
-  }
-
-  if(error){
-    return <ErrorPage error={error} onRetry={() => window.location.reload()} />
   }
 
   const strength = Math.min(4, [/.{8,}/, /[A-Z]/, /[0-9]/, /[^A-Za-z0-9]/].filter((r) => r.test(form.password)).length);
@@ -128,6 +124,10 @@ export default function RegisterForm({ onSwitch }) {
           </div>
         )}
       </div>
+
+      {error && (
+        <p className="text-sm text-red-400 mb-2" style={{ fontFamily: "Inter" }}>{error}</p>
+      )}
 
       <SubmitButton label="Create Account" />
 

@@ -15,29 +15,31 @@ export const useAuth = () => {
         
             const data = await registerUser({ email, contact, password, fullName, isSeller })
             if(data.success){
-                return data;
+                return data; // returns truthy on success
             }
         }catch(error){
-            dispatch(setError(error.message))
+            // axios wraps the error — get the actual server message
+            const message = error?.response?.data?.message || error.message || "Registration failed";
+            dispatch(setError(message))
         }finally{
             dispatch(setLoading(false))
         }
         return null;
     }
 
-    async function handleLogin({email,password}){
+    async function handleLogin({email,contact,password}){
         try {
             dispatch(setLoading(true))
             dispatch(setError(null))
         
-            const data = await loginUser({ email, password })
+            const data = await loginUser({ email, contact, password })
             if(data.success){
                 dispatch(setUser(data.user))
-                dispatch(setToken(data.token))
                 return data;
             }
         }catch(error){
-            dispatch(setError(error.message))
+            const message = error?.response?.data?.message || error.message || "Login failed";
+            dispatch(setError(message))
         }finally{
             dispatch(setLoading(false))
         }

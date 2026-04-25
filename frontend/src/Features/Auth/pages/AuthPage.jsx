@@ -63,8 +63,20 @@ function BrandMark() {
 }
 
 /* ── Left editorial panel ───────────────────────────────────── */
+// Run logic OUTSIDE the component so it only happens once per hard page reload!
+const getNextImage = () => {
+  if (typeof window === "undefined") return "/auth_model.png";
+  const lastImage = sessionStorage.getItem("lastAuthImage");
+  const nextImage = lastImage === "/auth_model.png" ? "/auth_male_model.png" : "/auth_model.png";
+  sessionStorage.setItem("lastAuthImage", nextImage);
+  return nextImage;
+};
+
+const INITIAL_IMAGE = getNextImage();
+
 function EditorialPanel() {
   const panelRef = useRef(null);
+  const [bgImage] = useState(INITIAL_IMAGE);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -80,8 +92,8 @@ function EditorialPanel() {
   return (
     <motion.div
       ref={panelRef}
-      className="hidden lg:flex flex-col justify-between w-[45%] h-full bg-[#111111] bg-cover bg-center text-[#f0f0f0] relative overflow-hidden flex-shrink-0"
-      style={{ backgroundImage: "url('/auth_model.png')" }}
+      className="hidden lg:flex flex-col justify-between w-[45%] h-full bg-[#111111] bg-cover bg-center text-[#f0f0f0] relative overflow-hidden flex-shrink-0 transition-all duration-1000"
+      style={{ backgroundImage: `url('${bgImage}')` }}
       initial={{ x: -60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}

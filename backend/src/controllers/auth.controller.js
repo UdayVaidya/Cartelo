@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { config } from "../config/config.js";
 import { ApiError } from "../utils/ApiError.js";
 
+
 const TOKEN_COOKIE_NAME = "token";
 const TOKEN_COOKIE_MAX_AGE = 24 * 60 * 60 * 1000;
 const TOKEN_COOKIE_BASE_OPTIONS = {
@@ -135,7 +136,15 @@ export const loginUser = async (req, res, next) => {
         .json({ message: "Email/contact and password are required" });
     }
 
-    const user = await userModel.findOne({ $or: [{ email }, { contact }] });
+    const queryConditions = [];
+    if (email) queryConditions.push({ email: email.toLowerCase() });
+    if (contact) queryConditions.push({ contact });
+
+    if (queryConditions.length === 0) {
+      return res.status(400).json({ message: "Email or contact is required" });
+    }
+
+    const user = await userModel.findOne({ $or: queryConditions });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -147,7 +156,7 @@ export const loginUser = async (req, res, next) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    await sentTokenResponse(user, res, 200, "User logged in successfully");
+    await sentTokenResponse(user, res, "User logged in successfully", 200);
   } catch (error) {
     return next(new ApiError(500, error.message || "Error logging in user"));
   }

@@ -3,18 +3,24 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import authRouter from "./routes/auth.route.js";
+import productRouter from "./routes/products.route.js";
 import passport from "passport";
 import {Strategy as GoogleStrategy} from 'passport-google-oauth20'
 import { config } from "./config/config.js";
 import { ApiError } from "./utils/ApiError.js";
+import { setupSwagger } from "./config/swagger.js";
 
 const app = express();
+
+// Set up Swagger UI
+setupSwagger(app);
 
 // Middleware
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true
 }));
+
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -32,6 +38,7 @@ passport.use(new GoogleStrategy({
 
 // Routes
 app.use("/api/auth", authRouter);
+app.use("/api/products",productRouter);
 
 app.post("/api/health", (req, res) => {
     res.json({ status: 200, message: "OK", timestamp: new Date().toISOString() });
