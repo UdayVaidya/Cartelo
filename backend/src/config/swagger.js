@@ -19,6 +19,16 @@ const options = {
         description: 'Development server',
       },
     ],
+    tags: [
+      {
+        name: 'Auth',
+        description: 'Authentication and User Management',
+      },
+      {
+        name: 'Products',
+        description: 'Product Management and Catalog',
+      },
+    ],
     components: {
       securitySchemes: {
         cookieAuth: {

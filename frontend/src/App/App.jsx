@@ -2,7 +2,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./app.route";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMe } from "../Features/Auth/services/auth.service";
+import { getMe } from "../Features/Auth/services/auth.api";
 import { setUser, setInitialized } from "../Features/Auth/state/auth.slice";
 
 function App() {

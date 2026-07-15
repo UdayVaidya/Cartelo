@@ -25,7 +25,7 @@ function AuthRoute({ children }) {
     // If there's an error, make sure we aren't secretly keeping an old session alive
     useEffect(() => {
         if (authError) {
-            import("../Features/Auth/services/auth.service").then(({ logoutUser }) => {
+            import("../Features/Auth/services/auth.api").then(({ logoutUser }) => {
                 logoutUser().catch(() => {});
             });
             dispatch({ type: "auth/logout" });

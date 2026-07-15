@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, setToken, setLoading, setError, setInitialized, logout } from "../state/auth.slice";
-import { useNavigate } from "react-router-dom";
-import { registerUser, loginUser, getMe, googleAuth, logoutUser as logoutUserAPI } from "../services/auth.service";
+import { registerUser, loginUser, getMe, googleAuth, logoutUser as logoutUserAPI } from "../services/auth.api";
 
 export const useAuth = () => {
     const dispatch  = useDispatch();

@@ -31,7 +31,6 @@ export const createProduct = async (req, res, next) => {
   }
 };
 
-
 export const getSellerProducts = async (req, res, next) => {
   try {
     const id = req.user?._id;
